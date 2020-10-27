@@ -14,6 +14,26 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
-    }
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail
+    },
+    {
+      path: '/city',
+      name: 'City',
+      component: City
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+    },
   ]
 })
