@@ -1,14 +1,19 @@
 <template>
     <div class="container">
         <common-header :title="title"></common-header>
+        <city-scroll-wrapper></city-scroll-wrapper>
     </div>
 </template>
 <script>
-import CommonHeader from 'components/Header/Common'
+import CommonHeader from 'components/Header/Common';
+import CityScrollWrapper from 'components/ScrollWrapper/City';
+
 export default {
+    
     name:'City',
     components:{
-        CommonHeader
+        CommonHeader,
+        CityScrollWrapper
     },
     data(){
         return{

@@ -2,19 +2,18 @@
     <div class="city">
        <router-link to="City">
             <span class="city-name">
-            {{this.CityName}}
+            {{this.cityName}}
             </span>
             <span class="iconfont icon-header-arrow"></span>
        </router-link>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     name:'CitySelector',
-    data(){
-        return{
-            CityName:'全部'
-        }
+    computed:{
+        ...mapState(['cityName'])
     }
 }
 </script>
