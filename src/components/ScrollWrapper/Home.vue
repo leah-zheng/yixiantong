@@ -5,8 +5,11 @@
             <home-title :title='homeTitle.viewTitle'></home-title>
             <view-list :viewDatas='homeDatas.viewDatas'></view-list>
             <home-title :title='homeTitle.foodTitle'></home-title>
+            <food-list :foodDatas='homeDatas.foodDatas'></food-list>
             <home-title :title='homeTitle.ktvTitle'></home-title>
+            
             <home-title :title='homeTitle.hotelTitle'></home-title>
+            <hotel-list :hotelDatas="homeDatas.hotelDatas"></hotel-list>
             <home-title :title='homeTitle.massageTitle'></home-title>
         </div>
        
@@ -17,6 +20,9 @@ import BetterScroll from 'better-scroll';
 import CategoryIcons from './CategoryIcons/Index';
 import HomeTitle from './Sub/HomeTitle'
 import ViewList from './ViewList/Index'
+import FoodList from './FoodList/Index'
+import HotelList from './HotelList/Index'
+import tools from 'utils/tools'
 import { mapState } from 'vuex';
 import { IndexModel } from 'models/index';
 
@@ -29,7 +35,9 @@ export default {
     components:{
         CategoryIcons,
         HomeTitle,
-        ViewList
+        ViewList,
+        FoodList,
+        HotelList
     },
     data(){
         return {
@@ -61,11 +69,12 @@ export default {
                 if(res &&res.status == 0){
                     const data = res.data;
                     console.log(data);
-                    this.homeDatas.foodDatas = data.foodDatas;
+                    this.homeDatas.foodDatas = tools.formatJSON(data.foodDatas,'keyword');
                     this.homeDatas.hotelDatas = data.hotelDatas;
                     this.homeDatas.ktvDatas = data.ktvDatas;
                     this.homeDatas.massageDatas = data.massageDatas;
                     this.homeDatas.viewDatas = data.viewDatas;
+                    console.log(this.homeDatas.foodDatas);
                 }
                 
             })
