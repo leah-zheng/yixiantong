@@ -6,11 +6,12 @@
             <view-list :viewDatas='homeDatas.viewDatas'></view-list>
             <home-title :title='homeTitle.foodTitle'></home-title>
             <food-list :foodDatas='homeDatas.foodDatas'></food-list>
-            <home-title :title='homeTitle.ktvTitle'></home-title>
-            
             <home-title :title='homeTitle.hotelTitle'></home-title>
             <hotel-list :hotelDatas="homeDatas.hotelDatas"></hotel-list>
             <home-title :title='homeTitle.massageTitle'></home-title>
+            <massage-list :massageDatas="homeDatas.massageDatas"></massage-list>
+            <home-title :title='homeTitle.ktvTitle'></home-title>
+            <ktv-list :ktvDatas="homeDatas.ktvDatas"></ktv-list>
         </div>
        
     </div>
@@ -22,6 +23,8 @@ import HomeTitle from './Sub/HomeTitle'
 import ViewList from './ViewList/Index'
 import FoodList from './FoodList/Index'
 import HotelList from './HotelList/Index'
+import KtvList from './KtvList/Index'
+import MassageList from './MassageList/Index'
 import tools from 'utils/tools'
 import { mapState } from 'vuex';
 import { IndexModel } from 'models/index';
@@ -37,7 +40,9 @@ export default {
         HomeTitle,
         ViewList,
         FoodList,
-        HotelList
+        HotelList,
+        MassageList,
+        KtvList
     },
     data(){
         return {

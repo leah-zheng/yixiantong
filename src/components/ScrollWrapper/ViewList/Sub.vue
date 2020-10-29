@@ -43,6 +43,7 @@ export default {
         width: 50%;
         padding: .1rem;
         box-sizing: border-box;
+        border-bottom: 1px solid #ddd;
         .img{
             width: 100%;
             height: 1.1rem;
