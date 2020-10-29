@@ -37,8 +37,14 @@ export default {
     name:'HomeScrollWrapper',
     mounted(){
         this.scroll = new BetterScroll(this.$refs.wrapper);
+        this.currentCityId = this.cityId;
         this.getHomeDatas(this.cityId);
-        
+    },
+    activated(){
+        if(this.currentCityId !== this.cityId){
+            this.currentCityId = this.cityId;
+            this.getHomeDatas(this.currentCityId);
+        }
     },
     components:{
         CategoryIcons,
@@ -52,6 +58,7 @@ export default {
     },
     data(){
         return {
+            currentCityId:0,
             errorShow:false,
             homeTitle:{
                 foodTitle:'推荐美食',
