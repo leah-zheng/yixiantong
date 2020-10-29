@@ -2,16 +2,19 @@
     <div class="scroll-wrapper" ref="wrapper">
         <div class="scroll-content">
             <category-icons></category-icons>
-            <home-title :title='homeTitle.viewTitle'></home-title>
-            <view-list :viewDatas='homeDatas.viewDatas'></view-list>
-            <home-title :title='homeTitle.foodTitle'></home-title>
-            <food-list :foodDatas='homeDatas.foodDatas'></food-list>
-            <home-title :title='homeTitle.hotelTitle'></home-title>
-            <hotel-list :hotelDatas="homeDatas.hotelDatas"></hotel-list>
-            <home-title :title='homeTitle.massageTitle'></home-title>
-            <massage-list :massageDatas="homeDatas.massageDatas"></massage-list>
-            <home-title :title='homeTitle.ktvTitle'></home-title>
-            <ktv-list :ktvDatas="homeDatas.ktvDatas"></ktv-list>
+            <div v-show="!errorShow">
+                <home-title :title='homeTitle.viewTitle'></home-title>
+                <view-list :viewDatas='homeDatas.viewDatas'></view-list>
+                <home-title :title='homeTitle.foodTitle'></home-title>
+                <food-list :foodDatas='homeDatas.foodDatas'></food-list>
+                <home-title :title='homeTitle.hotelTitle'></home-title>
+                <hotel-list :hotelDatas="homeDatas.hotelDatas"></hotel-list>
+                <home-title :title='homeTitle.massageTitle'></home-title>
+                <massage-list :massageDatas="homeDatas.massageDatas"></massage-list>
+                <home-title :title='homeTitle.ktvTitle'></home-title>
+                <ktv-list :ktvDatas="homeDatas.ktvDatas"></ktv-list>
+            </div>
+            <error :errorShow="errorShow"></error>
         </div>
        
     </div>
@@ -25,6 +28,7 @@ import FoodList from './FoodList/Index'
 import HotelList from './HotelList/Index'
 import KtvList from './KtvList/Index'
 import MassageList from './MassageList/Index'
+import Error from './Sub/Error'
 import tools from 'utils/tools'
 import { mapState } from 'vuex';
 import { IndexModel } from 'models/index';
@@ -33,7 +37,8 @@ export default {
     name:'HomeScrollWrapper',
     mounted(){
         this.scroll = new BetterScroll(this.$refs.wrapper);
-        this.getHomeDatas(this.cityId)
+        this.getHomeDatas(this.cityId);
+        
     },
     components:{
         CategoryIcons,
@@ -42,10 +47,12 @@ export default {
         FoodList,
         HotelList,
         MassageList,
-        KtvList
+        KtvList,
+        Error
     },
     data(){
         return {
+            errorShow:false,
             homeTitle:{
                 foodTitle:'推荐美食',
                 hotelTitle:'推荐酒店',
@@ -69,17 +76,17 @@ export default {
         getHomeDatas(cityId){
             const indexModel = new IndexModel();
 
-            indexModel.getHomeDatas(cityId).then(res => {
-
-                if(res &&res.status == 0){
+            indexModel.getHomeDatas(cityId).then((res) => {
+                if(res &&res.status === 0){
                     const data = res.data;
-                    console.log(data);
+                    this.errorShow = false;
                     this.homeDatas.foodDatas = tools.formatJSON(data.foodDatas,'keyword');
                     this.homeDatas.hotelDatas = data.hotelDatas;
                     this.homeDatas.ktvDatas = data.ktvDatas;
                     this.homeDatas.massageDatas = data.massageDatas;
                     this.homeDatas.viewDatas = data.viewDatas;
-                    console.log(this.homeDatas.foodDatas);
+                }else {
+                    this.errorShow = true;
                 }
                 
             })

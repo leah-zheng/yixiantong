@@ -16,7 +16,7 @@ class IndexModel extends HTTP {
                     })
                 },
                 error(err){
-                    reject({
+                    resolve({
                         status:-1
                     })
                 }
