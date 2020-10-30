@@ -2,12 +2,25 @@
     <div class="scroll-wrapper" ref="wrapper">
         <div class="scroll-content">
             <detail-swiper :picDatas="detailData.pics"></detail-swiper>
+            <detail-food 
+                v-if="field === 'food'"
+                :name="detailData.name"
+                :score="detailData.score"
+                :starNum="Number(detailData.star)"
+                :address="detailData.address"
+                :price="Number(detailData.default_price)"
+                :opentime="detailData.open_datetime"
+                :recom="detailData.recom"
+                :commentKeyword="detailData.comment_keyword"
+            ></detail-food>
         </div>
     </div>
 </template>
 <script>
 import BetterScroll from 'better-scroll';
-import DetailSwiper from './Sub/Swiper'
+import DetailSwiper from './Sub/Swiper';
+import DetailFood from './Detail/Food'
+
 import {DetailModel} from 'models/detail';
 import tools from 'utils/tools'
 export default {
@@ -20,13 +33,15 @@ export default {
         }
     },
     components:{
-        DetailSwiper
+        DetailSwiper,
+        DetailFood
     },
     mounted(){
         this.scroll = new BetterScroll(this.$refs.wrapper);
         this.field = this.$route.query.field;
         this.id = this.$route.query.id;
         this.getDetail(this.field,this.id);
+        
     },
     methods:{
         getDetail(field,id){
