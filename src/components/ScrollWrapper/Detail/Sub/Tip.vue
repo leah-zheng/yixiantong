@@ -1,39 +1,43 @@
 <template>
-    <div class="opentime-bd">
-        <span class="iconfont icon-datetime"></span>
-        <span class="opentime-text">{{opentime}}</span>
+    <div class="tip-bd">
+        <span class="iconfont icon-tip"></span>
+        <span class="tip-text">{{tip}}</span>
     </div>
-</template>
+</template> 
 <script>
 export default {
-    name:'DetailOpenTime',
+    name:'DetailTip',
     props:{
-        opentime:{
+        tip:{
             type:String,
             default(){
-                return '时间加载中...'
+                return '加载中...'
             }
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-    .opentime-bd{
+    .tip-bd{
         display: flex;
         align-items: center;
         min-height: .44rem;
-        padding: .1rem .15rem ;
+        padding: .1rem .15rem;
         background-color: #fff;
         border-bottom: 1px solid #ddd;
         line-height: .2rem;
         box-sizing: border-box;
-        .icon-datetime{
+
+        .icon-tip{
             font-size: .18rem;
             color: #999;
+            margin-right: .1rem;
+            
         }
-        .opentime-text{
-            font-size: .16rem;
-            padding-left: .15rem;
+        .tip-text{
+            font-size: .14rem;
+            line-height: .18rem;
+            
         }
     }
 </style>

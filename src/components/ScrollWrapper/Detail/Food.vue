@@ -18,7 +18,7 @@ import DetailOpenTime from './Sub/OpenTime';
 import DetailRecom from './Sub/Recom';
 import DetailCommentKeyword from './Sub/CommentKeyword'
 export default {
-    name:'',
+    name:'DetailFood',
     components:{
         DetailName,
         DetailStars,

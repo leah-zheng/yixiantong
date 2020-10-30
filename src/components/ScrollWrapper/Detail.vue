@@ -13,6 +13,27 @@
                 :recom="detailData.recom"
                 :commentKeyword="detailData.comment_keyword"
             ></detail-food>
+            <detail-view
+                v-if="field === 'view'"
+                :name="detailData.name"
+                :score="detailData.score"
+                :starNum="Number(detailData.star)"
+                :address="detailData.address"
+                :price="Number(detailData.default_price)"
+                :opentime="detailData.open_datetime"
+                :tip="detailData.tip"
+                :intro="detailData.intro"
+                :ticket="detailData.ticket_info"
+            ></detail-view>
+            <detail-hotel
+                v-if="field === 'hotel'"
+                :name="detailData.name"
+                :score="detailData.score"
+                :starNum="Number(detailData.star)"
+                :address="detailData.address"
+                :price="Number(detailData.default_price)"
+                :server="detailData.service"
+            ></detail-hotel>
         </div>
     </div>
 </template>
@@ -20,6 +41,9 @@
 import BetterScroll from 'better-scroll';
 import DetailSwiper from './Sub/Swiper';
 import DetailFood from './Detail/Food'
+import DetailView from './Detail/View'
+import DetailHotel from './Detail/Hotel'
+
 
 import {DetailModel} from 'models/detail';
 import tools from 'utils/tools'
@@ -34,7 +58,9 @@ export default {
     },
     components:{
         DetailSwiper,
-        DetailFood
+        DetailFood,
+        DetailView,
+        DetailHotel
     },
     mounted(){
         this.scroll = new BetterScroll(this.$refs.wrapper);
