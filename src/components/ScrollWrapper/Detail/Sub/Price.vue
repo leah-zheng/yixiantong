@@ -1,7 +1,7 @@
 <template>
     <div class="price-bd">
         <span class="iconfont icon-price"></span>
-        <span class="price-text" :price="price">￥{{price}} 起</span>
+        <span class="price-text" :price="price">￥{{price||0}} 起</span>
     </div>
 </template>
 <script>
