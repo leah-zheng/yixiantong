@@ -1,11 +1,16 @@
 <template>
     <div class="scroll-wrapper" ref="wrapper">
         <div class="scroll-content">
-            <view-list v-if="field === 'view'" :viewDatas="listDatas"></view-list>
-            <food-list v-if="field === 'food'" :foodDatas="listDatas"></food-list>
-            <ktv-list v-if="field === 'ktv'" :ktvDatas="listDatas"></ktv-list>
-            <massage-list v-if="field === 'massage'" :massageDatas="listDatas"></massage-list>
-            <hotel-list v-if="field === 'hotel'" :hotelDatas="listDatas"></hotel-list>
+            <div v-show="!errorShow">
+                <view-list v-if="field === 'view'" :viewDatas="listDatas[cityId]"></view-list>
+                <food-list v-if="field === 'food'" :foodDatas="listDatas[cityId]"></food-list>
+                <ktv-list v-if="field === 'ktv'" :ktvDatas="listDatas[cityId]"></ktv-list>
+                <massage-list v-if="field === 'massage'" :massageDatas="listDatas[cityId]"></massage-list>
+                <hotel-list v-if="field === 'hotel'" :hotelDatas="listDatas[cityId]"></hotel-list>
+
+                <loading :loadingShow="loadingShow"></loading>
+            </div>
+            <error :errorShow="errorShow"></error>
         </div>
     </div>
 </template>
@@ -18,6 +23,8 @@ import FoodList from './FoodList/Index'
 import HotelList from './HotelList/Index'
 import MassageList from './MassageList/Index'
 import KtvList from './KtvList/Index'
+import Loading from './Sub/Loading'
+import Error from './Sub/Error'
 
 import tools from 'utils/tools'
 
@@ -29,11 +36,15 @@ export default {
         FoodList,
         HotelList,
         MassageList,
-        KtvList
+        KtvList,
+        Loading,
+        Error
     },
     data(){
         return{
-            listDatas:[]
+            loadingShow:true,
+            listDatas:{},
+            errorShow:false
         }
     },
     computed:{
@@ -45,17 +56,34 @@ export default {
     },
     methods:{
         getListDatas(cityId,field){
-            const listModel = new ListModel();
-            
-            listModel.getListDatas(cityId,field).then((res)=>{
-                if(res && res.status == 0){
-                    const data = tools.formatJSON(res.data,'keyword');
-                    
-                    this.listDatas = data;
+            if(!this.listDatas[cityId]){
+                const listModel = new ListModel();
 
-                    
-                }
-            })
+                this.loadingShow = true;
+
+                listModel.getListDatas(cityId,field).then((res)=>{
+                    if(res && res.status == 0){
+                        const data = tools.formatJSON(res.data,'keyword');
+                        this.errorShow = false;
+                        setTimeout(()=>{
+                            this.listDatas[cityId] = data;
+                            this.loadingShow = false;
+                        },500);
+                        
+                    }else{
+                        this.errorShow = true;
+                        console.log({
+                        'ErrorStatus':res.status,
+                        'ErrorMsg':res.error
+                    });
+                    }
+                })
+            }
+        }
+    },
+    watch:{
+        cityId(){
+             this.getListDatas(this.cityId,this.field);
         }
     }
 }

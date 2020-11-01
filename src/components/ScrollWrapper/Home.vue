@@ -94,6 +94,10 @@ export default {
                     this.homeDatas.viewDatas = data.viewDatas;
                 }else {
                     this.errorShow = true;
+                    console.log({
+                        'ErrorStatus':res.status,
+                        'ErrorMsg':res.error
+                    });
                 }
                 
             })

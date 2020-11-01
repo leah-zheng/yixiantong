@@ -127,6 +127,10 @@ export default {
                     console.log(this.detailData);
                 }else{
                     this.errorShow = true;
+                    console.log({
+                        'ErrorStatus':res.status,
+                        'ErrorMsg':res.error
+                    });
                 }
             })
         }
